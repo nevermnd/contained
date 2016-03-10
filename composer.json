@@ -10,7 +10,7 @@
     }
   ],
   "require-dev": {
-    "phpunit/phpunit": "*"
+    "phpunit/phpunit": "~4.4"
   },
   "autoload-dev": {
     "psr-4": {
