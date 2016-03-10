@@ -1,7 +1,7 @@
 {
   "name": "contained/contained",
   "description": "Simple PHP dependency injection container",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
     {
@@ -10,7 +10,8 @@
     }
   ],
   "require-dev": {
-    "phpunit/phpunit": "~4.8"
+    "phpunit/phpunit": "~4.8",
+    "symfony/yaml": "~2.1"
   },
   "autoload-dev": {
     "psr-4": {

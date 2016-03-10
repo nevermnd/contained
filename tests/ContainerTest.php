@@ -49,7 +49,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertSame(0, $get[2]);
     }
 
-    public function testResolveSelf()
+    public function testResolveContainerItself()
     {
         $container = new Container();
 
