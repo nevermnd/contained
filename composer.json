@@ -1,0 +1,26 @@
+{
+  "name": "nevermnd/contained",
+  "description": "PHP dependency injection container",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thiago Oliveira",
+      "email": "thiago.oliveira.gt14@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "phpunit/php-code-coverage": "^3"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Contained\\Test\\": "tests/"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Contained\\": "src/"
+    }
+  }
+}
