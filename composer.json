@@ -1,6 +1,6 @@
 {
-  "name": "nevermnd/contained",
-  "description": "PHP dependency injection container",
+  "name": "contained/contained",
+  "description": "Simple PHP dependency injection container",
   "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
@@ -10,8 +10,7 @@
     }
   ],
   "require-dev": {
-    "phpunit/phpunit": "*",
-    "phpunit/php-code-coverage": "^3"
+    "phpunit/phpunit": "*"
   },
   "autoload-dev": {
     "psr-4": {

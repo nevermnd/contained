@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2a67ec20c60ae671729dcb4fdb7c70b4",
-    "content-hash": "ee475f2dfb28921143296f1bf2014468",
+    "hash": "3f9dd4f52ed684f09aca6e6c828baa82",
+    "content-hash": "7ef6fc9d71b5700c6d32b1a3d386d847",
     "packages": [],
     "packages-dev": [
         {
@@ -1106,12 +1106,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "801d412451594f7c9e7950a016a377798cf9dfa0"
+                "reference": "38aebd1045f91caaf25db0164e2703b21fb5359d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/801d412451594f7c9e7950a016a377798cf9dfa0",
-                "reference": "801d412451594f7c9e7950a016a377798cf9dfa0",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/38aebd1045f91caaf25db0164e2703b21fb5359d",
+                "reference": "38aebd1045f91caaf25db0164e2703b21fb5359d",
                 "shasum": ""
             },
             "require": {
@@ -1147,7 +1147,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:56:56"
+            "time": "2016-03-10 14:06:18"
         }
     ],
     "aliases": [],
