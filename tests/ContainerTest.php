@@ -29,7 +29,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     {
         $container = new Container();
 
-        $this->assertInstanceOf('Contained\Test\Stub\Qux', $container->call(['Contained\Test\Stub\Bar', 'foo']));
+        $this->assertInstanceOf('Contained\Test\Stub\Qux', $container->call([new Bar(), 'foo']));
     }
 
     public function testResolveInterface()
