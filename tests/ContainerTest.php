@@ -106,7 +106,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     {
         $container = new Container();
 
-        $this->expectException(UnresolvableDependencyException::class);
+        $this->setExpectedException(UnresolvableDependencyException::class);
         $container->call([new IgnoreStub(), 'qux']);
     }
 }
