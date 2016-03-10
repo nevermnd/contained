@@ -48,7 +48,7 @@ class Container
      */
     public function bind($abstract, $concrete)
     {
-        $this->bindings[$abstract] = $concrete;
+        $this->bindings[$this->normalize($abstract)] = $concrete;
 
         return $this;
     }
@@ -63,7 +63,7 @@ class Container
      */
     public function singleton($abstract, $concrete)
     {
-        $this->singletons[$abstract] = $concrete;
+        $this->singletons[$this->normalize($abstract)] = $concrete;
 
         return $this;
     }
@@ -79,11 +79,46 @@ class Container
     {
         if (!is_null($concrete = $this->getSingleton($abstract))) {
             return $this->setSingleton($abstract, $this->createObject($concrete));
-        } elseif (!is_null($concrete = $this->getBind($abstract))) {
+        } elseif (!is_null($concrete = $this->getBinding($abstract))) {
             return $this->createObject($concrete);
         }
 
         return $this->createObject($abstract);
+    }
+
+    /**
+     * @param mixed $abstract
+     *
+     * @return mixed
+     */
+    public function getBinding($abstract)
+    {
+        return $this->getFromArray($this->bindings, $abstract);
+    }
+
+    /**
+     * @param mixed $abstract
+     *
+     * @return mixed
+     */
+    public function getSingleton($abstract)
+    {
+        return $this->getFromArray($this->singletons, $abstract);
+    }
+
+    /**
+     * Get a value from the array normalizing the abstract bind name
+     *
+     * @param array $array
+     * @param mixed $abstract
+     *
+     * @return mixed
+     */
+    protected function getFromArray($array, $abstract)
+    {
+        $abstract = $this->normalize($abstract);
+
+        return isset($array[$abstract]) ? $array[$abstract] : null;
     }
 
     /**
@@ -117,26 +152,6 @@ class Container
         $constructorArgs = $this->resolveDependencies($reflection->getConstructor());
 
         return $reflection->newInstanceArgs($constructorArgs);
-    }
-
-    /**
-     * @param mixed $abstract
-     *
-     * @return mixed
-     */
-    protected function getBind($abstract)
-    {
-        return isset($this->bindings[$abstract]) ? $this->bindings[$abstract] : null;
-    }
-
-    /**
-     * @param mixed $abstract
-     *
-     * @return mixed
-     */
-    protected function getSingleton($abstract)
-    {
-        return isset($this->singletons[$abstract]) ? $this->singletons[$abstract] : null;
     }
 
     /**
@@ -190,5 +205,21 @@ class Container
         }
 
         return $reflection;
+    }
+
+    /**
+     * Normalize class name
+     *
+     * @param mixed $abstract
+     *
+     * @return mixed
+     */
+    protected function normalize($abstract)
+    {
+        if (!is_string($abstract)) {
+            return $abstract;
+        }
+
+        return ltrim($abstract, '\\');
     }
 }

@@ -63,6 +63,14 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Contained\Test\Stub\FooImpl', $make->foo);
     }
 
+    public function testBindWithNumber()
+    {
+        $container = new Container();
+        $container->bind(0, 'Contained\Test\Stub\Qux');
+
+        $this->assertInstanceOf('Contained\Test\Stub\Qux', $container->make(0));
+    }
+
     public function testMakeSingleton()
     {
         $container = new Container();
@@ -105,6 +113,14 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException('Contained\Exceptions\UnresolvableDependencyException');
         $container->call([new IgnoreStub(), 'qux']);
+    }
+
+    public function testClassIsNormalizedBeforeBind()
+    {
+        $container = new Container();
+        $container->bind('\Contained\Test\Stub\FooInterface', '\Contained\Test\Stub\FooImpl');
+
+        $this->assertEquals($container->getBinding('Contained\Test\Stub\FooInterface'), '\Contained\Test\Stub\FooImpl');
     }
 }
 
