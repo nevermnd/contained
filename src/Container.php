@@ -12,15 +12,21 @@ use ReflectionParameter;
 class Container
 {
     /**
+     * Container bindings
+     *
      * @var array
      */
     private $bindings = [];
     /**
+     * Container singleton bindings
+     *
      * @var array
      */
     private $singletons = [];
 
     /**
+     * Call a callable resolving it's parameters dependencies
+     *
      * @param callable $callable
      *
      * @return mixed
@@ -33,6 +39,8 @@ class Container
     }
 
     /**
+     * Binds an implementation on the container
+     *
      * @param mixed $abstract
      * @param mixed $concrete
      *
@@ -46,6 +54,8 @@ class Container
     }
 
     /**
+     * Binds a singleton implementation on the container
+     *
      * @param mixed $abstract
      * @param mixed $concrete
      *
@@ -59,6 +69,8 @@ class Container
     }
 
     /**
+     * Make an object to the given abstract bind
+     *
      * @param mixed $abstract
      *
      * @return mixed
@@ -88,6 +100,8 @@ class Container
     }
 
     /**
+     * Creates an object given a concrete implementation
+     *
      * @param mixed $concrete
      *
      * @return mixed
@@ -126,6 +140,8 @@ class Container
     }
 
     /**
+     * Resolve the parameters dependencies
+     *
      * @param ReflectionFunctionAbstract $reflection
      *
      * @return array
