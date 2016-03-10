@@ -3,11 +3,8 @@
 namespace Contained\Test;
 
 use Contained\Container;
-use Contained\Exceptions\UnresolvableDependencyException;
 use Contained\Test\Stub\Bar;
-use Contained\Test\Stub\Baz;
 use Contained\Test\Stub\FooImpl;
-use Contained\Test\Stub\FooInterface;
 use Contained\Test\Stub\Qux;
 use PHPUnit_Framework_TestCase;
 
@@ -20,7 +17,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
         $fn = function (Qux $qux) use (&$funCalled) {
             $funCalled = true;
-            $this->assertInstanceOf(Qux::class, $qux);
+            $this->assertInstanceOf('Contained\Test\Stub\Qux', $qux);
         };
 
         $container->call($fn);
@@ -32,20 +29,20 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     {
         $container = new Container();
 
-        $this->assertInstanceOf(Qux::class, $container->call([new Bar(), 'foo']));
+        $this->assertInstanceOf('Contained\Test\Stub\Qux', $container->call(['Contained\Test\Stub\Bar', 'foo']));
     }
 
     public function testResolveInterface()
     {
         $container = new Container();
-        $container->bind(FooInterface::class, FooImpl::class);
+        $container->bind('Contained\Test\Stub\FooInterface', 'Contained\Test\Stub\FooImpl');
 
-        $make = $container->make(FooInterface::class);
-        $this->assertInstanceOf(FooImpl::class, $make);
+        $make = $container->make('Contained\Test\Stub\FooInterface');
+        $this->assertInstanceOf('Contained\Test\Stub\FooImpl', $make);
 
         $get = $container->call([$make, 'get']);
-        $this->assertInstanceOf(Bar::class, $get[0]);
-        $this->assertInstanceOf(Qux::class, $get[1]);
+        $this->assertInstanceOf('Contained\Test\Stub\Bar', $get[0]);
+        $this->assertInstanceOf('Contained\Test\Stub\Qux', $get[1]);
         $this->assertSame(0, $get[2]);
     }
 
@@ -53,43 +50,43 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     {
         $container = new Container();
 
-        $this->assertInstanceOf(Container::class, $container->call([new Bar(), 'container']));
+        $this->assertInstanceOf('Contained\Container', $container->call([new Bar(), 'container']));
     }
 
     public function testResolveConstructorArgs()
     {
         $container = new Container();
-        $container->bind(FooInterface::class, FooImpl::class);
+        $container->bind('Contained\Test\Stub\FooInterface', 'Contained\Test\Stub\FooImpl');
 
-        $make = $container->make(Baz::class);
-        $this->assertInstanceOf(Baz::class, $make);
-        $this->assertInstanceOf(FooImpl::class, $make->foo);
+        $make = $container->make('Contained\Test\Stub\Baz');
+        $this->assertInstanceOf('Contained\Test\Stub\Baz', $make);
+        $this->assertInstanceOf('Contained\Test\Stub\FooImpl', $make->foo);
     }
 
     public function testMakeSingleton()
     {
         $container = new Container();
         $fooImpl = new FooImpl();
-        $container->singleton(FooInterface::class, $fooImpl);
+        $container->singleton('Contained\Test\Stub\FooInterface', $fooImpl);
 
-        $this->assertSame($fooImpl, $container->make(FooInterface::class));
+        $this->assertSame($fooImpl, $container->make('Contained\Test\Stub\FooInterface'));
     }
 
     public function testMakeAliasBind()
     {
         $container = new Container();
 
-        $container->bind('bar', Bar::class);
-        $this->assertInstanceOf(Bar::class, $container->make('bar'));
+        $container->bind('bar', 'Contained\Test\Stub\Bar');
+        $this->assertInstanceOf('Contained\Test\Stub\Bar', $container->make('bar'));
     }
 
     public function testMakeAliasSingleton()
     {
         $container = new Container();
-        $container->singleton('bar', Bar::class);
+        $container->singleton('bar', 'Contained\Test\Stub\Bar');
         $bar = $container->make('bar');
 
-        $this->assertInstanceOf(Bar::class, $bar);
+        $this->assertInstanceOf('Contained\Test\Stub\Bar', $bar);
         $this->assertSame($bar, $container->make('bar'));
     }
 
@@ -98,7 +95,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $container = new Container();
         $method = $container->call([new IgnoreStub(), 'foo']);
 
-        $this->assertInstanceOf(Qux::class, $method[0]);
+        $this->assertInstanceOf('Contained\Test\Stub\Qux', $method[0]);
         $this->assertNull($method[1]);
     }
 
@@ -106,7 +103,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     {
         $container = new Container();
 
-        $this->setExpectedException(UnresolvableDependencyException::class);
+        $this->setExpectedException('Contained\Exceptions\UnresolvableDependencyException');
         $container->call([new IgnoreStub(), 'qux']);
     }
 }
