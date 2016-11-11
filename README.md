@@ -1,6 +1,6 @@
 Contained
 =========
-[![Build Status](https://api.travis-ci.org/nevermnd/contained.svg?branch=master)](https://travis-ci.org/nevermnd/contained)
+[![Build Status](https://api.travis-ci.org/skiptirengu/contained.svg?branch=master)](https://travis-ci.org/skiptirengu/contained)
 
 Simple DI container for PHP
 
